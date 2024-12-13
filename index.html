@@ -2,12 +2,132 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Junes Sheikhi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>149<b>101</b>.xyz</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.5em 0;
+        }
+
+        #countdown {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #222;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        #info {
+            font-size: 1.2rem;
+            margin: 1em 0;
+        }
+
+        #btn {
+            padding: 1em 2em;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #btn:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+
+        #btn:hover:not(:disabled) {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            #countdown {
+                font-size: 2rem;
+            }
+
+            #info {
+                font-size: 1rem;
+            }
+
+            #btn {
+                font-size: 0.9rem;
+                padding: 0.8em 1.5em;
+            }
+        }
+    </style>
 </head>
 <body>
-<center>
-<h1>Hey,</h1>
-<h2>I'm "Junes".</h2>
-</center>
+<h1>Welcome to 149<b>101</b>.xyz</h1>
+<div id="countdown">Loading...</div>
+<div id="info">Counting down to Junes' birthday on September 14th.</div>
+<button id="btn" disabled>Send congratulations now</button>
+
+<script>
+    function updateCountdown() {
+        const targetDate = new Date(new Date().getFullYear(), 8, 14); // September 14th
+        const now = new Date();
+
+        // Adjust for next year if the date has passed
+        if (now > targetDate) {
+            targetDate.setFullYear(targetDate.getFullYear() + 1);
+        }
+
+        const diff = targetDate - now;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+        // Check if it's September 14th
+        const isBirthday = now.getMonth() === 8 && now.getDate() === 14;
+        const button = document.getElementById('btn');
+
+        if (isBirthday) {
+            button.disabled = false;
+            button.innerText = "Send congratulations now";
+            button.addEventListener('click', () => {
+                window.location.href = "mailto:info@149101.xyz";
+            });
+        } else {
+            button.disabled = true;
+            button.innerText = "Available only on September 14th";
+        }
+    }
+
+    // Update every second
+    setInterval(updateCountdown, 1000);
+</script>
 </body>
 </html>
